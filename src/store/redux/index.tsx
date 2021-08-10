@@ -1,12 +1,12 @@
 import { combineReducers, createStore, Store } from "redux";
-import { AppStore } from "../../types";
+import { IAppStore } from "../../types";
 import { authReducer, todosReducer } from "./reducers";
 
-const rootReducer = combineReducers<AppStore>({
-  auth: authReducer,
+const rootReducer = combineReducers<IAppStore>({
+  authStore: authReducer,
   todoStore: todosReducer,
 });
 
-const store: Store<AppStore> = createStore(rootReducer);
+const store: Store<IAppStore> = createStore(rootReducer);
 
 export default store;

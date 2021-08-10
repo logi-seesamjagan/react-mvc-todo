@@ -1,17 +1,17 @@
 import {
   AuthStoreStatus,
-  AuthStore,
+  IAuthStore,
   FSA,
   Todo,
   User,
-  TodoStore,
+  ITodoStore,
   TodoStoreStatus,
 } from "../../../types";
 
 export function authReducer(
-  state: AuthStore = { status: AuthStoreStatus.IDLE },
+  state: IAuthStore = { status: AuthStoreStatus.IDLE },
   action: FSA<User | string, AuthStoreStatus>
-): AuthStore {
+): IAuthStore {
   const { type, payload } = action;
   switch (type) {
     case AuthStoreStatus.LOGGED_IN:
@@ -25,26 +25,26 @@ export function authReducer(
     case AuthStoreStatus.AUTH_ERROR:
       return {
         user: null,
-        errorMessage: payload as string,
+        message: payload as string,
         status: type,
       };
     case AuthStoreStatus.REGISTERING:
     case AuthStoreStatus.REGISTERING_SUCCESS:
       return { status: type };
     case AuthStoreStatus.REGISTERING_FAILED:
-      return { status: type, errorMessage: payload as string };
+      return { status: type, message: payload as string };
     default:
       return state;
   }
 }
 
 export function todosReducer(
-  state: TodoStore = { todos: [], status: TodoStoreStatus.IDLE, message: "" },
+  state: ITodoStore = { todos: [], status: TodoStoreStatus.IDLE, message: "" },
   action: FSA<
     Todo | Todo[] | string,
     TodoStoreStatus & AuthStoreStatus.LOGGING_OUT
   >
-): TodoStore {
+): ITodoStore {
   const { type, payload } = action;
   switch (type) {
     // ---------------------------------
