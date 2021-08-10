@@ -1,0 +1,84 @@
+.App {
+  width: 375px;
+  height: 667px;
+  border-radius: 0.2rem;
+  box-shadow: 0 0 4px;
+  overflow: hidden;
+  padding: 4px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.AppHeader {
+  display: flex;
+  box-shadow: 0 0px 2px #000;
+  border-radius: 0.2rem;
+  background-color: #6696C6;
+  color: #fff;
+  align-items: center;
+}
+
+.AppTitle {
+  padding: 8px 4px;
+  flex-grow: 1;
+}
+
+.Page {
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 0px 2px #000;
+  border-radius: 0.2rem;
+  flex-grow: 1;
+  padding: 4px;
+  overflow: auto;
+}
+
+.Page-404 {
+  align-items: center;
+  justify-content: center;
+  color: tomato;
+}
+.NavBar {
+  display: flex;
+  gap: 4px;
+}
+
+.Link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 3rem;
+  flex-grow: 1;
+  box-shadow: 0 0px 2px #000;
+  background-color: #69C;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 0.2rem;
+}
+
+.Link.active {
+  background-color: #369;
+}
+.Icon {
+  display: inline-flex;
+  padding-right: 1ch;
+}
+.Logout {
+  padding: 1ch;
+  cursor: pointer;
+}
+.UserName {
+  font-weight: bold;
+}
+
+.PageHeader {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px dotted #000;
+  justify-content: space-between;
+}
+.PageTitle {
+  color: #234689;
+  
+}

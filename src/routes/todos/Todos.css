@@ -1,0 +1,54 @@
+.No-Data {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    text-align: center;
+}
+.Todos {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    overflow: auto;
+    padding: 1ch;
+    gap: 1ch;
+}
+.Todo {
+    padding: 0.5ch;
+    border-radius: 0.25rem;
+    box-shadow: 0 0 4px -1px;
+    display: flex;
+    align-items: center;
+}
+.Todo .Icon {
+    text-shadow: 0 0 3px;
+}
+.TodosPage .Form {
+    box-shadow: none;
+    width: 18ch;
+}
+.TodosPage .Form .FormItemLabel {
+    flex-basis: 5ch;
+}
+.Task {
+    flex-grow: 1;
+    border: transparent;
+    background-color: transparent;
+}
+.Task.Edit {
+    border: solid 1px #ccc;
+    padding: 0.5ch;
+}
+
+.Icon.Action {
+    cursor: pointer;
+    padding: 0;
+    font-size: small;
+}
+.Icon.Edit {
+    transform: scaleX(-1);
+}
+.Actions {
+    display: flex;
+    gap: 0.75ch;
+    padding: 0 0.5ch;
+}
