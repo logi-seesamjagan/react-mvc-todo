@@ -6,11 +6,19 @@ import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
 import { reduxStore } from "./store";
 
+const Wrapper = function Wrapper(props: any) {
+  return process.env.REACT_APP_STORE === "mobx" ? (
+    props.children
+  ) : (
+    <Provider store={reduxStore}>{props.children}</Provider>
+  );
+};
+
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={reduxStore}>
+    <Wrapper>
       <App />
-    </Provider>
+    </Wrapper>
   </React.StrictMode>,
   document.getElementById("root")
 );
@@ -18,4 +26,4 @@ ReactDOM.render(
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals(console.log);
+reportWebVitals();
