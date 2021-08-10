@@ -2,8 +2,7 @@ import { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { apiLogin, apiLogout } from "../../ajax";
 import mockService from "../../ajax/__mock/mock-service";
-import { AuthActions } from "../../store/actions";
-import { AuthStore, FSA, AppStore, User } from "../../types";
+import { AuthStore, FSA, AppStore, User, AuthStoreStatus } from "../../types";
 
 //--------------------------------------
 // service/controller hook for Auth
@@ -13,89 +12,66 @@ export function useAuthService() {
   const auth = useSelector<AppStore, AuthStore>((state) => state.auth);
   const dispatch = useDispatch();
 
-  const loggingIn = useCallback(() => {
-    dispatch({ type: AuthActions.LOGGING_IN });
-  }, [dispatch]);
-
-  const loggingOut = useCallback(() => {
-    dispatch({ type: AuthActions.LOGGING_OUT });
-  }, [dispatch]);
-
-  const loggedIn = useCallback(
-    (user: User) => {
-      const action: FSA<User> = {
-        type: AuthActions.LOGGED_IN,
-        payload: user,
-      };
-      dispatch(action);
-    },
-    [dispatch]
-  );
-
-  const loggedOut = useCallback(
-    (user: User) => {
-      const action: FSA<User> = {
-        type: AuthActions.LOGGED_OUT,
-        payload: user,
-      };
-      dispatch(action);
-      return true;
-    },
-    [dispatch]
-  );
-
-  const authError = useCallback(
-    (message: string) => {
-      const action: FSA<string> = {
-        type: AuthActions.AUTH_ERROR,
-        payload: message,
-      };
-      dispatch(action);
-    },
-    [dispatch]
-  );
-
   const logIn = useCallback(
     (user: User): Promise<User> => {
-      loggingIn();
+      dispatch({ type: AuthStoreStatus.LOGGING_IN });
       return apiLogin(user)
         .then((user) => {
-          loggedIn(user);
+          const action: FSA<User> = {
+            type: AuthStoreStatus.LOGGED_IN,
+            payload: user,
+          };
+          dispatch(action);
           return user;
         })
         .catch((error) => {
-          authError(error.message);
+          const action: FSA<string> = {
+            type: AuthStoreStatus.AUTH_ERROR,
+            payload: error.message,
+          };
+          dispatch(action);
           throw error;
         });
     },
-    [loggingIn, loggedIn, authError]
+    [dispatch]
   );
 
   const logOut = useCallback(
-    (user: User): Promise<true> => {
-      loggingOut();
+    (user: User): Promise<boolean> => {
+      dispatch({ type: AuthStoreStatus.LOGGING_OUT });
       return apiLogout(user)
-        .then(() => loggedOut(user) as true)
+        .then(() => {
+          const action: FSA<User> = {
+            type: AuthStoreStatus.LOGGED_OUT,
+            payload: user,
+          };
+          dispatch(action);
+          return true;
+        })
         .catch((error) => {
-          authError(error.message);
-          throw error;
+          const action: FSA<string> = {
+            type: AuthStoreStatus.AUTH_ERROR,
+            payload: error.message,
+          };
+          dispatch(action);
+          return false;
         });
     },
-    [loggingOut, loggedOut, authError]
+    [dispatch]
   );
 
   const register = useCallback(
     (user: User): Promise<User> => {
-      dispatch({ type: AuthActions.REGISTERING });
+      dispatch({ type: AuthStoreStatus.REGISTERING });
       return mockService
         .register(user)
         .then((u) => {
-          dispatch({ type: AuthActions.REGISTERING_SUCCESS });
+          dispatch({ type: AuthStoreStatus.REGISTERING_SUCCESS });
           return u;
         })
         .catch((e) => {
           dispatch({
-            type: AuthActions.REGISTERING_FAILED,
+            type: AuthStoreStatus.REGISTERING_FAILED,
             payload: e.message,
           });
           throw e;

@@ -5,28 +5,30 @@ export type User = {
   uid?: string;
 };
 
-export type AuthStoreStatus =
-  | "logged-in"
-  | "logged-out"
-  | "logging-in"
-  | "logging-out"
-  | "auth-error"
-  | "registering"
-  | "registering-success"
-  | "registering-failed"
-  | "idle";
+export enum AuthStoreStatus {
+  LOGGED_IN = "logged-in",
+  LOGGED_OUT = "logged-out",
+  LOGGING_IN = "logging-in",
+  LOGGING_OUT = "logging-out",
+  AUTH_ERROR = "auth-error",
+  REGISTERING = "registering",
+  REGISTERING_SUCCESS = "registering-success",
+  REGISTERING_FAILED = "registering-failed",
+  IDLE = "idle"
+} ;
 
-export type TodoStoreStatus =
-  | "getting-todo"
-  | "get-todo-success"
-  | "get-todo-failed"
-  | "setting-todo"
-  | "set-todo-success"
-  | "set-todo-failed"
-  | "adding-todo"
-  | "add-todo-success"
-  | "add-todo-failed"
-  | 'idle';
+export enum TodoStoreStatus {
+  GETTING_TODO = "getting-todo",
+  GET_TODO_SUCCESS = "get-todo-success",
+  GET_TODO_FAILED = "get-todo-failed",
+  SETTING_TODO = "setting-todo",
+  SET_TODO_SUCCESS = "set-todo-success",
+  SET_TODO_FAILED = "set-todo-failed",
+  ADDING_TODO = "adding-todo",
+  ADD_TODO_SUCCESS = "add-todo-success",
+  ADD_TODO_FAILED = "add-todo-failed",
+  IDLE = "idle",
+}
 
 export type AuthStore = {
   status: AuthStoreStatus;
@@ -34,7 +36,11 @@ export type AuthStore = {
   errorMessage?: string;
 };
 
-export type TodoStatus = "open" | "done" | "wip";
+export enum TodoStatus {
+  OPEN = "open",
+  DONE = "done",
+  WIP = "wip",
+}
 
 export type Todo = {
   status: TodoStatus;

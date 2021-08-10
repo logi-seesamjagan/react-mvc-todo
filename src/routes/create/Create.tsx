@@ -18,7 +18,7 @@ type CreateViewForm = {
 
 const createViewInitialState: CreateViewForm = {
   task: "",
-  status: "open",
+  status: TodoStatus.OPEN,
 };
 
 const initCreateViewState = (): CreateViewForm => {

@@ -24,6 +24,10 @@
   flex-grow: 1;
 }
 
+.AppTitle .Icon {
+  padding: 0;
+}
+
 .Page {
   display: flex;
   flex-direction: column;

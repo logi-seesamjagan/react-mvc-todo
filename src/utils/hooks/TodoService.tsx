@@ -28,7 +28,7 @@ export function useTodosService() {
     (uid: string, status?: string) => {
 
       const action: Omit<FSA<any, TodoStoreStatus>, "payload"> = {
-        type: "getting-todo",
+        type: TodoStoreStatus.GETTING_TODO,
       };
 
       dispatch(action);
@@ -36,7 +36,7 @@ export function useTodosService() {
         .getTodos(uid, status)
         .then((todos) => {
           const action: FSA<Todo[], TodoStoreStatus> = {
-            type: "get-todo-success",
+            type: TodoStoreStatus.GET_TODO_SUCCESS,
             payload: todos,
           };
           dispatch(action);
@@ -44,7 +44,7 @@ export function useTodosService() {
         })
         .catch((error: Error) => {
           const action: FSA<string, TodoStoreStatus> = {
-            type: "get-todo-failed",
+            type: TodoStoreStatus.GET_TODO_FAILED,
             payload: error.message,
           };
           dispatch(action);
@@ -57,14 +57,14 @@ export function useTodosService() {
   const setTodo = useCallback(
     (todo: Todo) => {
       const action: Omit<FSA<any, TodoStoreStatus>, "payload"> = {
-        type: "setting-todo",
+        type: TodoStoreStatus.SETTING_TODO,
       };
       dispatch(action);
       return mockService
         .setTodo(todo)
         .then((todo) => {
           const action: FSA<Todo, TodoStoreStatus> = {
-            type: "set-todo-success",
+            type: TodoStoreStatus.SET_TODO_SUCCESS,
             payload: todo,
           };
           dispatch(action);
@@ -72,7 +72,7 @@ export function useTodosService() {
         })
         .catch((error: Error) => {
           const action: FSA<string, TodoStoreStatus> = {
-            type: "set-todo-failed",
+            type: TodoStoreStatus.SET_TODO_FAILED,
             payload: error.message,
           };
           dispatch(action);
@@ -85,14 +85,14 @@ export function useTodosService() {
   const addTodo = useCallback(
     (todo: NewTodo) => {
       const action: Omit<FSA<any, TodoStoreStatus>, "payload"> = {
-        type: "adding-todo",
+        type: TodoStoreStatus.ADDING_TODO,
       };
       dispatch(action);
       return mockService
         .addTodo(todo)
         .then((todo) => {
           const action: FSA<Todo, TodoStoreStatus> = {
-            type: "add-todo-success",
+            type: TodoStoreStatus.ADD_TODO_SUCCESS,
             payload: todo,
           };
           dispatch(action);
@@ -100,7 +100,7 @@ export function useTodosService() {
         })
         .catch((error: Error) => {
           const action: FSA<string, TodoStoreStatus> = {
-            type: "add-todo-failed",
+            type: TodoStoreStatus.ADD_TODO_FAILED,
             payload: error.message,
           };
           dispatch(action);

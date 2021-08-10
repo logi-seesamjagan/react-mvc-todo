@@ -6,33 +6,32 @@ import {
   User,
   TodoStore,
   TodoStoreStatus,
-} from "../../types";
-import { AuthActions } from "../actions";
+} from "../../../types";
 
 export function authReducer(
-  state: AuthStore = { status: "idle" },
+  state: AuthStore = { status: AuthStoreStatus.IDLE },
   action: FSA<User | string, AuthStoreStatus>
 ): AuthStore {
   const { type, payload } = action;
   switch (type) {
-    case AuthActions.LOGGED_IN:
+    case AuthStoreStatus.LOGGED_IN:
       return { status: type, user: payload as User };
-    case AuthActions.LOGGED_OUT:
+    case AuthStoreStatus.LOGGED_OUT:
       return { status: type };
-    case AuthActions.LOGGING_IN:
+    case AuthStoreStatus.LOGGING_IN:
       return { status: type };
-    case AuthActions.LOGGING_OUT:
+    case AuthStoreStatus.LOGGING_OUT:
       return { ...state, status: type };
-    case AuthActions.AUTH_ERROR:
+    case AuthStoreStatus.AUTH_ERROR:
       return {
         user: null,
         errorMessage: payload as string,
         status: type,
       };
-    case AuthActions.REGISTERING:
-    case AuthActions.REGISTERING_SUCCESS:
+    case AuthStoreStatus.REGISTERING:
+    case AuthStoreStatus.REGISTERING_SUCCESS:
       return { status: type };
-    case AuthActions.REGISTERING_FAILED:
+    case AuthStoreStatus.REGISTERING_FAILED:
       return { status: type, errorMessage: payload as string };
     default:
       return state;
@@ -40,48 +39,55 @@ export function authReducer(
 }
 
 export function todosReducer(
-  state: TodoStore = { todos: [], status: "idle", message: "" },
-  action: FSA<Todo | Todo[] | string, TodoStoreStatus>
+  state: TodoStore = { todos: [], status: TodoStoreStatus.IDLE, message: "" },
+  action: FSA<
+    Todo | Todo[] | string,
+    TodoStoreStatus & AuthStoreStatus.LOGGING_OUT
+  >
 ): TodoStore {
   const { type, payload } = action;
   switch (type) {
     // ---------------------------------
-    case "adding-todo":
+    case TodoStoreStatus.ADDING_TODO:
       return { ...state, status: type };
-    case "add-todo-success":
+    case TodoStoreStatus.ADD_TODO_SUCCESS:
       return {
         ...state,
-        status: "idle",
+        status: TodoStoreStatus.IDLE,
         todos: [...state.todos, payload as Todo],
       };
-    case "add-todo-failed":
+    case TodoStoreStatus.ADD_TODO_FAILED:
       return { ...state, status: type };
     // ---------------------------------
-    case "getting-todo":
+    case TodoStoreStatus.GETTING_TODO:
       return { status: type, todos: [], message: "" };
-    case "get-todo-success":
-      return { status: "idle", todos: payload as Todo[], message: "" };
-    case "get-todo-failed":
+    case TodoStoreStatus.GET_TODO_SUCCESS:
+      return {
+        status: TodoStoreStatus.IDLE,
+        todos: payload as Todo[],
+        message: "",
+      };
+    case TodoStoreStatus.GET_TODO_FAILED:
       return { status: type, message: payload as string, todos: [] };
     // ---------------------------------
-    case "setting-todo":
+    case TodoStoreStatus.SETTING_TODO:
       return { ...state, status: type };
-    case "set-todo-success":
+    case TodoStoreStatus.SET_TODO_SUCCESS:
       const todo: Todo = payload as Todo;
       return {
         ...state,
-        status: "idle",
+        status: TodoStoreStatus.IDLE,
         todos: [...state.todos.filter((t) => t.id !== todo.id), todo],
       };
-    case "set-todo-failed":
+    case TodoStoreStatus.SET_TODO_FAILED:
       return {
         ...state,
         status: type,
         message: payload as string,
       };
     // ---------------------------------
-    case AuthActions.LOGGED_OUT:
-      return { status: "idle", todos: [], message: "" };
+    case AuthStoreStatus.LOGGED_OUT:
+      return { status: TodoStoreStatus.IDLE, todos: [], message: "" };
     default:
       return state;
   }
