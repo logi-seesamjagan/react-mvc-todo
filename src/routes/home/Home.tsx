@@ -1,9 +1,9 @@
 import "./Home.css";
 import { Link } from "react-router-dom";
-import { AuthStore } from "../../types";
+import { IAuthStore } from "../../types";
 import { useAuthService } from "../../utils";
 
-export function HomeView({ auth }: { auth: AuthStore }) {
+export function HomeView({ auth }: { auth: IAuthStore }) {
   return (
     <div className="Page Home">
       {auth.status === "logged-in" && (

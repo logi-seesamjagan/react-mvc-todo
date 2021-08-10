@@ -13,7 +13,7 @@ export function RegisterView({
   registerUser,
   authStatus,
 }: {
-  registerUser: (user: User) => Promise<User>;
+  registerUser: (user: User) => Promise<User | string>;
   authStatus: AuthStoreStatus;
 }) {
   const [userName, setUserName] = useState("");
@@ -28,8 +28,8 @@ export function RegisterView({
     (e) => {
       e.preventDefault();
       if (userName.trim().length >= MIN_LENGTH_USERNAME) {
-        registerUser({ userName }).catch((e) => {
-          alert(e.message);
+        registerUser({ userName }).then((userOrErrorMessage) => {
+          typeof userOrErrorMessage === "string" && alert(userOrErrorMessage);
         });
       } else {
         setUserNameError("Username is required");
@@ -79,5 +79,10 @@ export default function RegisterContainer() {
     }
   }, [auth.status, history]);
 
-  return <RegisterView registerUser={register} authStatus={auth.status} />;
+  return (
+    <RegisterView
+      registerUser={register}
+      authStatus={auth.status}
+    />
+  );
 }

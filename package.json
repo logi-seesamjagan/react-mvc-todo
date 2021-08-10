@@ -10,6 +10,7 @@
     "@types/node": "^12.0.0",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
+    "mobx": "^6.3.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.4",
@@ -23,7 +24,11 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "build:redux": "REACT_APP_STORE=redux BUILD_PATH=build/redux react-scripts build",
+    "build:mobx": "REACT_APP_STORE=mobx BUILD_PATH=build/mobx react-scripts build",
+    "start:redux": "REACT_APP_STORE=redux PORT=3003 react-scripts start",
+    "start:mobx": "REACT_APP_STORE=mobx PORT=3004 react-scripts start"
   },
   "eslintConfig": {
     "extends": [

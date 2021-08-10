@@ -30,10 +30,10 @@ export enum TodoStoreStatus {
   IDLE = "idle",
 }
 
-export type AuthStore = {
+export interface IAuthStore {
   status: AuthStoreStatus;
   user?: User | null;
-  errorMessage?: string;
+  message?: string;
 };
 
 export enum TodoStatus {
@@ -51,15 +51,15 @@ export type Todo = {
 
 export type NewTodo = Omit<Todo, "id">;
 
-export type TodoStore = {
+export interface ITodoStore {
   todos: Todo[];
   status: TodoStoreStatus;
   message: string;
 };
 
-export type AppStore = {
-  auth: AuthStore;
-  todoStore: TodoStore;
+export interface IAppStore {
+  authStore: IAuthStore;
+  todoStore: ITodoStore;
 };
 
 export type FSA<Payload = any, ActionType = string> = Action<ActionType> & {

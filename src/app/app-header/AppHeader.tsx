@@ -36,7 +36,8 @@ export function AppHeader() {
   return (
     <header className="AppHeader">
       <h2 className="AppTitle">
-        <span className="Icon">📒</span>MVC-In-ToDo
+        <span className="Icon">📒</span>MVC-In-ToDo [
+        {process.env.REACT_APP_STORE}]
       </h2>
       <AutoInfo />
     </header>

@@ -2,13 +2,13 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useCallback } from "react";
 import { Link, useHistory } from "react-router-dom";
-import { Blocker,  } from "../../components";
+import { Blocker } from "../../components";
 import { User } from "../../types";
 import { useAuthService } from "../../utils";
 import "./Login.css";
 
 type LoginViewPropType = {
-  logIn: (user: User) => Promise<User>;
+  logIn: (user: User) => Promise<User | string>;
   authStatus: string;
 };
 
@@ -27,8 +27,8 @@ export function LoginView({ logIn, authStatus }: LoginViewPropType) {
     (e) => {
       e.preventDefault();
       if (userName.trim().length >= MIN_LENGTH_USERNAME) {
-        logIn({ userName }).catch((error) => {
-          alert(error.message);
+        logIn({ userName }).then((userOrErrorMessage) => {
+          typeof userOrErrorMessage === "string" && alert(userOrErrorMessage);
         });
       } else {
         setUserNameError("Username is required");
@@ -44,7 +44,7 @@ export function LoginView({ logIn, authStatus }: LoginViewPropType) {
         <div className="FormItem">
           <label>Username</label>
           <input
-          className="FormItemInput"
+            className="FormItemInput"
             type="text"
             value={userName}
             onChange={handleUserNameChange}
@@ -77,5 +77,10 @@ export default function LoginContainer() {
     }
   }, [auth, auth.status, history]);
 
-  return <LoginView logIn={logIn} authStatus={auth.status} />;
+  return (
+    <LoginView
+      logIn={logIn}
+      authStatus={auth.status}
+    />
+  );
 }
