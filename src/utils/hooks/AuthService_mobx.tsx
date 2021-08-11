@@ -17,13 +17,15 @@ function useXAuthService() {
 
   const register = authStore.register;
 
+  const reset = authStore.reset;
+
   useEffect(() => {
     return autorun(() => {
       setAuth({ ...authStore });
     });
   }, [authStore]);
 
-  return { auth, logIn, logOut, register };
+  return { auth, logIn, logOut, register, reset };
 }
 
 export { useXAuthService };

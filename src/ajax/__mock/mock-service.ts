@@ -1,4 +1,4 @@
-import { NewTodo, Todo, User } from "../../types";
+import { LoginUser, NewTodo, Todo, User } from "../../types";
 
 const getNetworkDelay = () => 1000 + Math.random() * 1000;
 
@@ -14,7 +14,7 @@ class MockService {
 
   static todoIndex: number = 0;
 
-  users: User[] = [{ userName: "Jagan", uid: "1" }];
+  users: User[] = [{ userName: "Jagan", uid: "1", tier: "free" }];
 
   session: User[] = [];
 
@@ -24,7 +24,7 @@ class MockService {
   // Auth Releated
   //------------------------------------
 
-  login(user: User): Promise<User> {
+  login(user: LoginUser): Promise<User> {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         const u = this.users.find((u) => u.userName === user.userName);

@@ -1,4 +1,4 @@
-import { User, IAuthStore, AuthStoreStatus } from "../../types";
+import { User, IAuthStore, AuthStoreStatus, LoginUser } from "../../types";
 import { makeAutoObservable } from "mobx";
 import { apiLogin, apiLogout, apiRegister } from "../../ajax";
 
@@ -11,7 +11,7 @@ class AuthStore implements IAuthStore {
     makeAutoObservable(this, {}, { autoBind: true });
   }
 
-  async logIn(user: User): Promise<User | string> {
+  async logIn(user: LoginUser): Promise<User | string> {
     this.status = AuthStoreStatus.LOGGING_IN;
     return apiLogin(user)
       .then((user) => {
@@ -30,10 +30,10 @@ class AuthStore implements IAuthStore {
   async logOut(user: User): Promise<boolean> {
     this.status = AuthStoreStatus.LOGGING_OUT;
     return apiLogout(user)
-      .then(() => {
-        this.status = AuthStoreStatus.LOGGED_OUT;
-        this.user = null;
-        this.message = "";
+      .then((isLoggedOut) => {
+        this.status = isLoggedOut ? AuthStoreStatus.LOGGED_OUT : AuthStoreStatus.AUTH_ERROR;
+        this.user = null; // TODO what to do in case of false?
+        this.message = isLoggedOut ? "" : "Failed to logout!";
         return true;
       })
       .catch((error) => {
@@ -55,6 +55,12 @@ class AuthStore implements IAuthStore {
         this.message = e.message;
         return e.message;
       });
+  }
+
+  reset() {
+    this.status = AuthStoreStatus.IDLE;
+    this.user = null;
+    this.message = "";
   }
 }
 

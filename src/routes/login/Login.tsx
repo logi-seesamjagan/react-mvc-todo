@@ -3,12 +3,12 @@ import { useState } from "react";
 import { useCallback } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { Blocker } from "../../components";
-import { User } from "../../types";
+import { LoginUser, User } from "../../types";
 import { useAuthService } from "../../utils";
 import "./Login.css";
 
 type LoginViewPropType = {
-  logIn: (user: User) => Promise<User | string>;
+  logIn: (user: LoginUser) => Promise<User | string>;
   authStatus: string;
 };
 

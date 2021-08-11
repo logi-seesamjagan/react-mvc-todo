@@ -1,4 +1,5 @@
 import { Redirect, useLocation } from "react-router-dom";
+import { AuthStoreStatus } from "../../types";
 import { useAuthService } from "../../utils";
 
 export function withGuard<CompPropType = any>(Comp: any) {
@@ -6,7 +7,11 @@ export function withGuard<CompPropType = any>(Comp: any) {
     const { auth } = useAuthService();
     const location = useLocation();
 
-    if (auth.status !== "logged-in") {
+    if (
+      ![AuthStoreStatus.LOGGED_IN, AuthStoreStatus.LOGGING_OUT].includes(
+        auth.status
+      )
+    ) {
       return (
         <Redirect
           to={{

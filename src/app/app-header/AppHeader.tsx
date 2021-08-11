@@ -7,9 +7,16 @@ function AutoInfo() {
 
   const { user, status } = auth;
 
-  const handleLogoutClick = useCallback(() => {
+  const handleLogoutClick = useCallback(async () => {
     if (user) {
-      logOut(user);
+      // console.log("::DEMO::Before")
+      const result = await logOut(user);
+      if(result) {
+        // clean up
+      } else {
+        // alert user
+      }
+      // console.log("::DEMO::After")
     }
   }, [user, logOut]);
 

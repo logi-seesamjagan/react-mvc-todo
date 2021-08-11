@@ -3,7 +3,10 @@ import { Action } from "redux";
 export type User = {
   userName: string;
   uid?: string;
+  tier:string;
 };
+
+export type LoginUser = Omit<User, "tier">;
 
 export enum AuthStoreStatus {
   LOGGED_IN = "logged-in",
@@ -14,7 +17,7 @@ export enum AuthStoreStatus {
   REGISTERING = "registering",
   REGISTERING_SUCCESS = "registering-success",
   REGISTERING_FAILED = "registering-failed",
-  IDLE = "idle"
+  IDLE = "idle-auth-store"
 } ;
 
 export enum TodoStoreStatus {
@@ -27,7 +30,7 @@ export enum TodoStoreStatus {
   ADDING_TODO = "adding-todo",
   ADD_TODO_SUCCESS = "add-todo-success",
   ADD_TODO_FAILED = "add-todo-failed",
-  IDLE = "idle",
+  IDLE = "idle-todo-store",
 }
 
 export interface IAuthStore {

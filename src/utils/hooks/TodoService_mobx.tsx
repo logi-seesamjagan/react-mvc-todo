@@ -30,7 +30,11 @@ export function useXTodosService() {
 
 autorun(() => {
   const { authStore, todoStore } = useXStore();
-  if (authStore.status === AuthStoreStatus.LOGGED_OUT) {
+  if (
+    [AuthStoreStatus.LOGGED_OUT, AuthStoreStatus.IDLE].includes(
+      authStore.status
+    )
+  ) {
     todoStore.todos = [];
     todoStore.status = TodoStoreStatus.IDLE;
   }

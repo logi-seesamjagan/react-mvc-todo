@@ -14,6 +14,8 @@ export function authReducer(
 ): IAuthStore {
   const { type, payload } = action;
   switch (type) {
+    case AuthStoreStatus.IDLE:
+      return {status: type, user: null, message: ''};
     case AuthStoreStatus.LOGGED_IN:
       return { status: type, user: payload as User };
     case AuthStoreStatus.LOGGED_OUT:
@@ -86,7 +88,11 @@ export function todosReducer(
         message: payload as string,
       };
     // ---------------------------------
+    // Special case based on AuthStore
+    // Actions
+    // ---------------------------------
     case AuthStoreStatus.LOGGED_OUT:
+    case AuthStoreStatus.IDLE:
       return { status: TodoStoreStatus.IDLE, todos: [], message: "" };
     default:
       return state;
