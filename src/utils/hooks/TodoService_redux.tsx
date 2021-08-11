@@ -8,11 +8,86 @@ import {
   NewTodo,
   Todo,
   TodoStatus,
-  TodoStoreStatus
+  TodoStoreStatus,
 } from "../../types";
+//--------------------------------------
+//#region action creators - Todos
+//--------------------------------------
+
+function actionGettingTodos() {
+  const action: Omit<FSA<any, TodoStoreStatus>, "payload"> = {
+    type: TodoStoreStatus.GETTING_TODO,
+  };
+  return action;
+}
+
+function actionGetTodosSuccess(todos: Todo[]) {
+  const action: FSA<Todo[], TodoStoreStatus> = {
+    type: TodoStoreStatus.GET_TODO_SUCCESS,
+    payload: todos,
+  };
+  return action;
+}
+
+function actionGetTodosFailed(message: string) {
+  const action: FSA<string, TodoStoreStatus> = {
+    type: TodoStoreStatus.GET_TODO_FAILED,
+    payload: message,
+  };
+  return action;
+}
+
+function actionSettingTodo() {
+  const action: Omit<FSA<any, TodoStoreStatus>, "payload"> = {
+    type: TodoStoreStatus.SETTING_TODO,
+  };
+  return action;
+}
+
+function actionSetTodoSuccess(todo: Todo) {
+  const action: FSA<Todo, TodoStoreStatus> = {
+    type: TodoStoreStatus.SET_TODO_SUCCESS,
+    payload: todo,
+  };
+  return action;
+}
+
+function actionSetTodoFailed(message: string) {
+  const action: FSA<string, TodoStoreStatus> = {
+    type: TodoStoreStatus.SET_TODO_FAILED,
+    payload: message,
+  };
+  return action;
+}
+
+function actionAddingTodo() {
+  const action: Omit<FSA<any, TodoStoreStatus>, "payload"> = {
+    type: TodoStoreStatus.ADDING_TODO,
+  };
+  return action;
+}
+
+function actionAddTodoSuccess(todo: Todo) {
+  const action: FSA<Todo, TodoStoreStatus> = {
+    type: TodoStoreStatus.ADD_TODO_SUCCESS,
+    payload: todo,
+  };
+  return action;
+}
+
+function actionAddTodoFailed(message: string) {
+  const action: FSA<string, TodoStoreStatus> = {
+    type: TodoStoreStatus.ADD_TODO_FAILED,
+    payload: message,
+  };
+  return action;
+}
+//--------------------------------------
+//#endregion
+//--------------------------------------
 
 //--------------------------------------
-// service/controller hook for todos
+// #region todos service/middleware hook
 //--------------------------------------
 
 export function useReduxTodosService() {
@@ -26,27 +101,15 @@ export function useReduxTodosService() {
   const dispatch = useDispatch();
 
   const getTodos = useCallback(
-    (uid: string, status?: TodoStatus) => {
-      const action: Omit<FSA<any, TodoStoreStatus>, "payload"> = {
-        type: TodoStoreStatus.GETTING_TODO,
-      };
-
-      dispatch(action);
+    async (uid: string, status?: TodoStatus) => {
+      dispatch(actionGettingTodos());
       return apiGetTodos(uid, status)
         .then((todos) => {
-          const action: FSA<Todo[], TodoStoreStatus> = {
-            type: TodoStoreStatus.GET_TODO_SUCCESS,
-            payload: todos,
-          };
-          dispatch(action);
+          dispatch(actionGetTodosSuccess(todos));
           return todos;
         })
         .catch((error: Error) => {
-          const action: FSA<string, TodoStoreStatus> = {
-            type: TodoStoreStatus.GET_TODO_FAILED,
-            payload: error.message,
-          };
-          dispatch(action);
+          dispatch(actionGetTodosFailed(error.message));
           return null;
         });
     },
@@ -54,26 +117,15 @@ export function useReduxTodosService() {
   );
 
   const setTodo = useCallback(
-    (todo: Todo) => {
-      const action: Omit<FSA<any, TodoStoreStatus>, "payload"> = {
-        type: TodoStoreStatus.SETTING_TODO,
-      };
-      dispatch(action);
+    async (todo: Todo) => {
+      dispatch(actionSettingTodo());
       return apiSetTodo(todo)
         .then((todo) => {
-          const action: FSA<Todo, TodoStoreStatus> = {
-            type: TodoStoreStatus.SET_TODO_SUCCESS,
-            payload: todo,
-          };
-          dispatch(action);
+          dispatch(actionSetTodoSuccess(todo));
           return todo;
         })
         .catch((error: Error) => {
-          const action: FSA<string, TodoStoreStatus> = {
-            type: TodoStoreStatus.SET_TODO_FAILED,
-            payload: error.message,
-          };
-          dispatch(action);
+          dispatch(actionSetTodoFailed(error.message));
           return null;
         });
     },
@@ -82,25 +134,14 @@ export function useReduxTodosService() {
 
   const addTodo = useCallback(
     (todo: NewTodo) => {
-      const action: Omit<FSA<any, TodoStoreStatus>, "payload"> = {
-        type: TodoStoreStatus.ADDING_TODO,
-      };
-      dispatch(action);
+      dispatch(actionAddingTodo());
       return apiAddTodo(todo)
         .then((todo) => {
-          const action: FSA<Todo, TodoStoreStatus> = {
-            type: TodoStoreStatus.ADD_TODO_SUCCESS,
-            payload: todo,
-          };
-          dispatch(action);
+          dispatch(actionAddTodoSuccess(todo));
           return todo;
         })
         .catch((error: Error) => {
-          const action: FSA<string, TodoStoreStatus> = {
-            type: TodoStoreStatus.ADD_TODO_FAILED,
-            payload: error.message,
-          };
-          dispatch(action);
+          dispatch(actionAddTodoFailed(error.message));
           return null;
         });
     },
@@ -109,3 +150,7 @@ export function useReduxTodosService() {
 
   return { todos, status, getTodos, setTodo, addTodo };
 }
+
+//--------------------------------------
+// #endregion
+//--------------------------------------
