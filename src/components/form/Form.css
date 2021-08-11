@@ -1,0 +1,51 @@
+.Form {
+  display: flex;
+  flex-direction: column;
+  gap: 1ch;
+  padding: 1ch;
+  box-shadow: 0 0 4px #000;
+  border-radius: 0.2rem;
+  width: 280px;
+}
+.FormHeader {
+  display: flex;
+  font-size: 1.25rem;
+  justify-content: center;
+  border-bottom: 1px solid #000;
+  padding-bottom: 4px;
+}
+.FormItem {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  width: 100%;
+  align-items: center;
+}
+.FormItem :is(input[type="text"], input[type="password"], select, textarea) {
+  flex-grow: 1;
+}
+.FormItemTitle {
+  font-weight: 600;
+}
+.FormItemError {
+  color: tomato;
+}
+.FormItemWarning {
+  color: orange;
+}
+.FormItemInfo {
+  color: gray;
+}
+.Form :is(.FormItemError, .FormItemInfo, .FormItemWarning) {
+  flex-basis: 100%;
+  font-size: 0.75em;
+}
+.FormFooter {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.FormFooter>* {
+    flex-grow: 1;
+}
