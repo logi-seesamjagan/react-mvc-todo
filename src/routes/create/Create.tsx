@@ -1,7 +1,12 @@
 import { FormEvent, useReducer } from "react";
-import { Blocker } from "../../components";
+import { Blocker, Form, FormFooter, FormItem } from "../../components";
 import { NewTodo, Todo, TodoStatus, TodoStoreStatus } from "../../types";
-import { FormAction, formReducer, useAuthService, useTodosService } from "../../utils";
+import {
+  FormAction,
+  formReducer,
+  useAuthService,
+  useTodosService,
+} from "../../utils";
 
 import "./Create.css";
 
@@ -9,6 +14,7 @@ type CreateViewProps = {
   addTodo: (todo: NewTodo) => Promise<Todo | null>;
   uid: string;
   status: TodoStoreStatus;
+  totalTodos: number;
 };
 
 type CreateViewForm = {
@@ -54,12 +60,8 @@ export function CreateView(props: CreateViewProps) {
         <h1 className="PageTitle">Create</h1>
       </header>
       <div className="PageContent">
-        <form className="Form" onSubmit={handleSubmit}>
-          <header className="FormHeader">
-            <h3 className="FormHeaderTitle">New Task</h3>
-          </header>
-          <div className="FormItem">
-            <label className="FormItemLabel">Task</label>
+        <Form onSubmit={handleSubmit} title="New Task">
+          <FormItem title="Task" htmlFor="task">
             <input
               className="FormItemInput"
               type="text"
@@ -67,10 +69,8 @@ export function CreateView(props: CreateViewProps) {
               value={state.task}
               onChange={dispatch}
             />
-            <div className="FormItemInfo"></div>
-          </div>
-          <div className="FormItem">
-            <label className="FormItemLabel">Status</label>
+          </FormItem>
+          <FormItem title="Status" htmlFor="status">
             <select
               className="FormItemInput"
               id="status"
@@ -81,12 +81,11 @@ export function CreateView(props: CreateViewProps) {
               <option>done</option>
               <option>wip</option>
             </select>
-            <div className="FormItemInfo"></div>
-          </div>
-          <footer className="FormFooter">
+          </FormItem>
+          <FormFooter>
             <button>Add</button>
-          </footer>
-        </form>
+          </FormFooter>
+        </Form>
         <Blocker show={status === "adding-todo"}>Please Wait...</Blocker>
       </div>
     </div>
@@ -95,9 +94,14 @@ export function CreateView(props: CreateViewProps) {
 
 export default function CreateContainer() {
   const { auth } = useAuthService();
-  const { addTodo, status } = useTodosService();
+  const { addTodo, status, todos } = useTodosService();
 
   return (
-    <CreateView status={status} addTodo={addTodo} uid={auth.user?.uid || ""} />
+    <CreateView
+      status={status}
+      addTodo={addTodo}
+      uid={auth.user?.uid || ""}
+      totalTodos={todos.length}
+    />
   );
 }
