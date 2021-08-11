@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useCallback } from "react";
 import { Link, useHistory } from "react-router-dom";
-import { Blocker } from "../../components";
+import { Blocker, Form, FormFooter, FormItem } from "../../components";
 import { LoginUser, User } from "../../types";
 import { useAuthService } from "../../utils";
 import "./Login.css";
@@ -39,26 +39,25 @@ export function LoginView({ logIn, authStatus }: LoginViewPropType) {
 
   return (
     <div className="Page Login">
-      <form className="Form LoginForm" onSubmit={handleFormSubmit}>
-        <header className="FormHeader">Login</header>
-        <div className="FormItem">
-          <label>Username</label>
+      <Form onSubmit={handleFormSubmit} title="Login">
+        <FormItem title="Username" htmlFor="userName" error={userNameError}>
           <input
-            className="FormItemInput"
+            id="userName"
             type="text"
             value={userName}
             onChange={handleUserNameChange}
             autoFocus
           />
-          <cite className="FormItemWarning">{userNameError}</cite>
-        </div>
+        </FormItem>
+        <FormFooter>
+          <button>Login</button>
+        </FormFooter>
         <footer className="FormFooter">
-          <button className="btn Login">Login</button>
+          <p>
+            Need an Account?&nbsp;<Link to="/register">Create </Link>&nbsp;one.
+          </p>
         </footer>
-        <footer className="FormFooter">
-          Need an Account?&nbsp;<Link to="/register">Create </Link>&nbsp;one.
-        </footer>
-      </form>
+      </Form>
       <Blocker show={authStatus === "logging-in"}>
         <p>Please Wait...</p>
       </Blocker>
