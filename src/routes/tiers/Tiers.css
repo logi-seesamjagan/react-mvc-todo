@@ -1,0 +1,23 @@
+.Tiers {
+ position: relative;
+ align-items: center;
+ gap: 5ch;
+}
+section {
+    text-align: center;
+}
+.Tiers header {
+    border-bottom: 1px solid #000;
+    text-transform: capitalize;
+    align-self: stretch;
+}
+.Tiers .Nav {
+    display: flex;
+    padding: 1ch;
+    gap: 1ch;
+}
+
+.Tiers .Nav a.active {
+    color: goldenrod;
+    font-weight: 600;
+}
