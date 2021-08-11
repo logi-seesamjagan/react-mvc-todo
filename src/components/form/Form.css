@@ -22,10 +22,15 @@
   align-items: center;
 }
 .FormItem :is(input[type="text"], input[type="password"], select, textarea) {
-  flex-grow: 1;
+  flex-basis: 100%;
+  padding: 1ch;
 }
 .FormItemTitle {
-  font-weight: 600;
+  font-weight: 400;
+  margin: 0 0 -1.25ch 1.25ch;
+  padding: 0 0.5ch;
+  z-index: 1;
+  background-color: #fff;
 }
 .FormItemError {
   color: tomato;
