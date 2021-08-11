@@ -69,18 +69,14 @@ export function LoginView({ logIn, authStatus }: LoginViewPropType) {
 export default function LoginContainer() {
   const { logIn, auth } = useAuthService();
 
-  const history = useHistory();
+  const history = useHistory<{ referrer?: string } | undefined>();
 
   useEffect(() => {
     if (auth.status === "logged-in") {
-      history.length > 0 ? history.goBack() : history.push("/");
+      const referrer = history.location.state?.referrer || "/";
+      history.push(referrer.indexOf("/login") === 0 ? "/" : referrer);
     }
   }, [auth, auth.status, history]);
 
-  return (
-    <LoginView
-      logIn={logIn}
-      authStatus={auth.status}
-    />
-  );
+  return <LoginView logIn={logIn} authStatus={auth.status} />;
 }

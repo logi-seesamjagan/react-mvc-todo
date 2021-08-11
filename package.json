@@ -21,8 +21,6 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "build:redux": "REACT_APP_STORE=redux BUILD_PATH=build/redux react-scripts build",
