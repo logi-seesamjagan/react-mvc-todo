@@ -32,6 +32,14 @@ export function HomeView({ auth }: { auth: IAuthStore }) {
           Todos!
         </section>
       )}
+      {auth.user?.tier === "free" && (
+        <section>
+          Enjoying the <Link to="/tiers/free">Free</Link> tier? Try our
+          <Link to="/tiers/gold">Gold</Link>or
+          <Link to="/tiers/platinum">Platinum</Link> tier to have more fun and
+          power
+        </section>
+      )}
       <section>
         Anyone can visit this page.
         <cite> No Auth Required!</cite>
@@ -55,7 +63,7 @@ export function HomeView({ auth }: { auth: IAuthStore }) {
             <Link className="LoginLink" to="/login">
               Login.
             </Link>
-            If you don't have an account? Then
+            If you don't have an account?
             <Link to="/register">Register</Link>one!
           </section>
         </>
