@@ -4,12 +4,6 @@ const getNetworkDelay = () => 1000 + Math.random() * 1000;
 
 class MockService {
   //
-  constructor() {
-    console.log("******************");
-    console.log("***Mock Service***");
-    console.log("******************");
-  }
-  //
   static userIndex: number = 1;
 
   static todoIndex: number = 0;
