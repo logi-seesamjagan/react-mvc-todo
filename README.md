@@ -1,46 +1,67 @@
-# Getting Started with Create React App
+# Dev Doc
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**scripts:**
+- `yarn start:redux` to start the app with **redux** as state management library
+- `yarn start:mobx` to start the app with **mobx** as state management library
+- `yarn build:redux` to build the app with **redux** as state management library
+- `yarn build:mobx` to build the app with **mobx** as state management library
 
-## Available Scripts
+# Recommended UI architecture
 
-In the project directory, you can run:
+Last Update: `2021-Aug-12`
 
-### `yarn start`
+## Problem Statement:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Statement #1:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+> UI layers (components) are tightly coupled with ‘some’ state management library (right now we are using redux). Which leads to the following problems,
 
-### `yarn test`
+1. It makes it difficult to change from one state management to another.
+1. Makes unit testing the views hard without mocking those stores
+1. Makes it difficult to reuse the component in different place / project
+1. No clear “Separation of Concern”
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Statement #2:
 
-### `yarn build`
+> Global states are polluted with lots of local states. Which leads to the following problems,
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. Too many boilerplate codes.
+1. Huge performance hit. When one teeny-tiny component updates the global state (which is supposed to be maintained in the local state),
+   - it forces the entire app to re-render
+   - It executes all the reducers (which is an unnecessary workload)
+   - Needs extra effort to make the app maintain its performance, which leads to bigger bundle size.
+1. Global state becomes unmanageable
+1. Global state becomes unclear & error prone
+1. Debugging becomes more complex
+1. Creates negative impact on productivity.
+1. When some of those small components get replaced by new components due to design changes, it will be easy for developers to forget to remove(or for fear of introducing blocker issue) all the “state management related” and its “boilerplate” codes, it leaves a lot of “dead codes” and “dead states” in the global state.
+1. It leads to all the problems mentioned in problem statement #1 as well.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Proposed Solution:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1. Need to separate (De-Couple) the views from the state management library by,
+   - Using “Service” as a middle man between a View-Container and a global store.
+   - Using a “view-container” component as wrapper on top of each view/route component to process global state and manage local state and pass them to childs via props.
+1. Handle the “local” state within the component itself.
+1. If siblings need to share the same data(state), hoist (move) them above to the parent “Container” component and receive / share them via props.
+1. Introduce “Typescript” gradually for strict type checking to avoid run-time error.
+1. Add more “unit test” to the “View” component
 
-### `yarn eject`
+## High level UI Architecture Diagram
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+![high-level-ui-architecture](high-level-ui-architecture.jpg "High level UI Architecture Diagram")
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Other Open Items to consider:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+1. Introduce SCSS for css pre-processing
+1. Co-locate the CSS / SCSS files along with its relevant View files
+1. Co-locate unit test scripts along with the View files
+1. Lazy-Load modules on demand
+1. Use magnetite components
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Tech Stack:
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+1. React
+1. Redux / React-Redux / mobx / xstate
+1. React-Router-Dom
+1. Typescript
