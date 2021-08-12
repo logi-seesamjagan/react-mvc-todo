@@ -1,7 +1,7 @@
 import { ChangeEvent, useRef, useState, MouseEvent } from "react";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Blocker } from "../../components";
+import { Blocker, Form, FormItem } from "../../components";
 import { Todo, TodoStatus, TodoStoreStatus } from "../../types";
 import { useAuthService, useTodosService } from "../../utils";
 
@@ -35,9 +35,9 @@ function TodoView(props: TodoViewProps) {
     const a = e.currentTarget.title;
     if (a === "Save") {
       saveTodo({ ...data, text: editedTask });
-    } else if(a === "Remove") {
-      if(action === "Edit") {
-        setAction('');
+    } else if (a === "Remove") {
+      if (action === "Edit") {
+        setAction("");
         setEditedTask(data.text);
       } else {
         // TODO invoke delete service
@@ -108,17 +108,16 @@ export function TodosView(props: TodosViewProps) {
     <div className="Page TodosPage">
       <header className="PageHeader">
         <h1 className="PageTitle">Todos</h1>
-        <div className="Form">
-          <div className="FormItem">
-            <label className="FormItemLabel">Show</label>
+        <Form>
+          <FormItem title="Show" htmlFor="filter">
             <select className="FormItemInput" onChange={handleShowAllChange}>
               <option>All</option>
               <option>open</option>
               <option>wip</option>
               <option>done</option>
             </select>
-          </div>
-        </div>
+          </FormItem>
+        </Form>
       </header>
       <div className="Todos">
         {todos
