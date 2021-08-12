@@ -20,7 +20,9 @@ export function TiersView({
       </section>
       {tier === "free" && (
         <section>
-          Wish to <Link to={`/upgrade/gold`}>upgrade to gold</Link> tier?
+          upgrade to <Link to={`/upgrade/gold`}>gold</Link> or{" "}
+          <Link to={`/upgrade/platinum`}>platinum</Link> tier to enjoy more
+          benifits!
         </section>
       )}
       {tier !== "free" && (
@@ -30,9 +32,12 @@ export function TiersView({
       )}
       <section>
         <nav className="Nav">
-          <Link to="/tiers/free">Free</Link>
-          <Link to="/tiers/gold">Gold</Link>
-          <Link to="/tiers/platinum">Platinum</Link>
+          <p>
+            Check out our other plans as well
+            <Link to="/tiers/free">Free</Link>
+            <Link to="/tiers/gold">Gold</Link>
+            <Link to="/tiers/platinum">Platinum</Link>
+          </p>
         </nav>
       </section>
     </div>

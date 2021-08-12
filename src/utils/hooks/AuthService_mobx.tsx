@@ -1,6 +1,7 @@
 import { autorun } from "mobx";
 import { useEffect, useState } from "react";
 import { useXStore } from "../../store";
+import { IAuthStore } from "../../types";
 
 //--------------------------------------
 // service/controller hook for Auth
@@ -9,7 +10,7 @@ import { useXStore } from "../../store";
 function useXAuthService() {
   const { authStore } = useXStore();
 
-  const [auth, setAuth] = useState({ ...authStore });
+  const [auth, setAuth] = useState<IAuthStore>({ ...authStore });
 
   const logIn = authStore.logIn;
 

@@ -72,3 +72,11 @@ export interface IAppStore {
 export type FSA<Payload = any, ActionType = string> = Action<ActionType> & {
   payload: Payload;
 };
+
+export type IAuthService = () => {
+  auth: IAuthStore;
+  logIn: (user: LoginUser) => Promise<string | User>;
+  logOut: (user: User) => Promise<boolean>;
+  register: (user: RegisterUser) => Promise<User | string>;
+  reset: () => void;
+};
