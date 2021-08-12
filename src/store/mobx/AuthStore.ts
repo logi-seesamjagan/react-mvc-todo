@@ -1,4 +1,4 @@
-import { User, IAuthStore, AuthStoreStatus, LoginUser } from "../../types";
+import { User, IAuthStore, AuthStoreStatus, LoginUser, RegisterUser } from "../../types";
 import { makeAutoObservable } from "mobx";
 import { apiLogin, apiLogout, apiRegister } from "../../ajax";
 
@@ -43,7 +43,7 @@ class AuthStore implements IAuthStore {
       });
   }
 
-  async register(user: User): Promise<User | string> {
+  async register(user: RegisterUser): Promise<User | string> {
     this.status = AuthStoreStatus.REGISTERING;
     return apiRegister(user)
       .then((u) => {

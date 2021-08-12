@@ -1,12 +1,16 @@
 import { Action } from "redux";
 
-export type User = {
+export type LoginUser = {
   userName: string;
-  uid?: string;
-  tier:string;
 };
 
-export type LoginUser = Omit<User, "tier">;
+export type RegisterUser = LoginUser & {
+  tier: string;
+};
+
+export type User = RegisterUser & {
+  uid: string;
+};
 
 export enum AuthStoreStatus {
   LOGGED_IN = "logged-in",
@@ -17,8 +21,8 @@ export enum AuthStoreStatus {
   REGISTERING = "registering",
   REGISTERING_SUCCESS = "registering-success",
   REGISTERING_FAILED = "registering-failed",
-  IDLE = "idle-auth-store"
-} ;
+  IDLE = "idle-auth-store",
+}
 
 export enum TodoStoreStatus {
   GETTING_TODO = "getting-todo",
@@ -37,7 +41,7 @@ export interface IAuthStore {
   status: AuthStoreStatus;
   user?: User | null;
   message?: string;
-};
+}
 
 export enum TodoStatus {
   OPEN = "open",
@@ -58,12 +62,12 @@ export interface ITodoStore {
   todos: Todo[];
   status: TodoStoreStatus;
   message: string;
-};
+}
 
 export interface IAppStore {
   authStore: IAuthStore;
   todoStore: ITodoStore;
-};
+}
 
 export type FSA<Payload = any, ActionType = string> = Action<ActionType> & {
   payload: Payload;

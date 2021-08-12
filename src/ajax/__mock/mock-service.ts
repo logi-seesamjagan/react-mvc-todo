@@ -1,4 +1,4 @@
-import { LoginUser, NewTodo, Todo, User } from "../../types";
+import { LoginUser, NewTodo, Todo, User, RegisterUser } from "../../types";
 
 const getNetworkDelay = () => 1000 + Math.random() * 1000;
 
@@ -56,7 +56,7 @@ class MockService {
     });
   }
 
-  register(user: User): Promise<User> {
+  register(user: RegisterUser): Promise<User> {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         const u = this.users.find((u) => u.userName === user.userName);

@@ -3,14 +3,14 @@ import { useState } from "react";
 import { useCallback } from "react";
 import { useHistory, Link } from "react-router-dom";
 import { Blocker, Form, FormFooter, FormItem } from "../../components";
-import { AuthStoreStatus, User } from "../../types";
+import { AuthStoreStatus, RegisterUser, User } from "../../types";
 import { useAuthService } from "../../utils";
 import "./Register.css";
 
 const MIN_LENGTH_USERNAME = 5;
 
 const TierInfos: any = {
-  free: "Can manage only 5 task at a time",
+  free: "Can manage upto 5 task at a time",
   gold: "Can manage 500 task. Free 500 MiB Cloud storage",
   platinum: "Can manage unlimited task. Free Unlimited Cloud storage",
 };
@@ -19,7 +19,7 @@ export function RegisterView({
   registerUser,
   authStatus,
 }: {
-  registerUser: (user: User) => Promise<User | string>;
+  registerUser: (user: RegisterUser) => Promise<User | string>;
   authStatus: AuthStoreStatus;
 }) {
   const [userName, setUserName] = useState("");
@@ -53,7 +53,7 @@ export function RegisterView({
         );
       }
     },
-    [userName, registerUser]
+    [userName, registerUser, tier]
   );
 
   return (
@@ -84,8 +84,9 @@ export function RegisterView({
           <button className="btn Register">Register</button>
         </FormFooter>
         <FormFooter>
-          <span>Already Have an Account?&nbsp;</span>
-          <Link to="/login"> Login</Link>
+          <p>
+            Already Have an Account? <Link to="/login">Login</Link>
+          </p>
         </FormFooter>
       </Form>
       <Blocker show={authStatus === "registering"}>

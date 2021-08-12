@@ -54,7 +54,7 @@ export function LoginView({ logIn, authStatus }: LoginViewPropType) {
         </FormFooter>
         <footer className="FormFooter">
           <p>
-            Need an Account?&nbsp;<Link to="/register">Create </Link>&nbsp;one.
+            Need an Account? Just&nbsp;<Link to="/register">Create</Link>&nbsp;it.
           </p>
         </footer>
       </Form>

@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { apiLogin, apiLogout, apiRegister } from "../../ajax";
-import { AuthStoreStatus, FSA, IAppStore, IAuthStore, LoginUser, User } from "../../types";
+import { AuthStoreStatus, FSA, IAppStore, IAuthStore, LoginUser, User, RegisterUser } from "../../types";
 
 //--------------------------------------
 // #region Action Creatore
@@ -101,7 +101,7 @@ function useReduxAuthService() {
   );
 
   const register = useCallback(
-    async (user: User): Promise<User | string> => {
+    async (user: RegisterUser): Promise<User | string> => {
       dispatch(actionRegistering());
       return apiRegister(user)
         .then((u) => {

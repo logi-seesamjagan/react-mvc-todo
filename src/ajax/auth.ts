@@ -1,4 +1,4 @@
-import { LoginUser, User } from "../types";
+import { LoginUser, User, RegisterUser } from "../types";
 
 import mockService from "./__mock/mock-service";
 
@@ -10,6 +10,6 @@ export function apiLogout(user: User): Promise<boolean> {
   return mockService.logout(user);
 }
 
-export function apiRegister(user: User): Promise<User> {
+export function apiRegister(user: RegisterUser): Promise<User> {
   return mockService.register(user);
 }
