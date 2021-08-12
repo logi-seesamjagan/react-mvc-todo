@@ -24,10 +24,8 @@
 }
 .TodosPage .Form {
     box-shadow: none;
-    width: 18ch;
-}
-.TodosPage .Form .FormItemLabel {
-    flex-basis: 5ch;
+    width: 10ch;
+    padding: 0 0 1ch;
 }
 .Task {
     flex-grow: 1;

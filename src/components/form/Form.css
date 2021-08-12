@@ -27,10 +27,12 @@
 }
 .FormItemTitle {
   font-weight: 400;
-  margin: 0 0 -1.25ch 1.25ch;
+  margin: 0 0 -1.25ch 0.5ch;
   padding: 0 0.5ch;
   z-index: 1;
   background-color: #fff;
+  color: #557;
+  font-size: 0.85rem;
 }
 .FormItemError {
   color: tomato;
