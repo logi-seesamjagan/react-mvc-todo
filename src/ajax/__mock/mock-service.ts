@@ -1,6 +1,31 @@
-import { LoginUser, NewTodo, Todo, User, RegisterUser } from "../../types";
+import { LoginUser, NewTodo, Todo, User, RegisterUser, Tiers } from "../../types";
 
 const getNetworkDelay = () => 1000 + Math.random() * 1000;
+
+
+const tierInfos: Tiers = {
+  free: {
+    type: "free",
+    name: "Free",
+    info: "Can manage upto 5 task at a time",
+    taskBucket: 5,
+    storageBucket: 0,
+  },
+  gold: {
+    type: "gold",
+    name: "Gold",
+    info: "Can manage 500 task. 500 MiB cloud storage",
+    taskBucket: 500,
+    storageBucket: 500,
+  },
+  platinum: {
+    type: "platinum",
+    name: "Platinum",
+    info: "Can manage unlimited task, unlimited cloud storage",
+    taskBucket: -1,
+    storageBucket: -1,
+  },
+};
 
 class MockService {
   //
@@ -125,6 +150,16 @@ class MockService {
         } else {
           reject(new Error("400-bad request. session info not found"));
         }
+      }, getNetworkDelay());
+    });
+  }
+  //------------------------------------
+  //
+  //-----------------------------------
+  getTiers(): Promise<Tiers> {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(tierInfos);
       }, getNetworkDelay());
     });
   }
