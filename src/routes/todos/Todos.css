@@ -21,6 +21,7 @@
 }
 .Todo .Icon {
     text-shadow: 0 0 3px;
+    padding-right: 1ch;
 }
 .TodosPage .Form {
     box-shadow: none;

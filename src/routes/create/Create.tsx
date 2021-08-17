@@ -1,20 +1,30 @@
+import { useEffect } from "react";
 import { FormEvent, useReducer } from "react";
 import { Blocker, Form, FormFooter, FormItem } from "../../components";
-import { NewTodo, Todo, TodoStatus, TodoStoreStatus } from "../../types";
 import {
-  FormAction,
-  formReducer,
+  NewTodo,
+  ProductStoreStatus,
+  Tier,
+  Todo,
+  TodoStatus,
+  TodoStoreStatus,
+} from "../../types";
+import { FormAction, formReducer } from "../../utils";
+import {
   useAuthService,
+  useProductService,
   useTodosService,
-} from "../../utils";
+} from "./../../services";
 
 import "./Create.css";
 
 type CreateViewProps = {
   addTodo: (todo: NewTodo) => Promise<Todo | null>;
   uid: string;
+  userName: string;
   status: TodoStoreStatus;
   totalTodos: number;
+  userTier: Tier;
 };
 
 type CreateViewForm = {
@@ -31,7 +41,7 @@ const initCreateViewState = (): CreateViewForm => {
   return { ...createViewInitialState };
 };
 
-function createViewReducer(
+function createViewFormReducer(
   state: CreateViewForm,
   action: FormAction | { type: "reset" }
 ): CreateViewForm {
@@ -42,11 +52,11 @@ function createViewReducer(
 }
 
 export function CreateView(props: CreateViewProps) {
-  const { status, addTodo, uid } = props;
+  const { status, addTodo, uid, userTier, totalTodos, userName } = props;
   const [state, dispatch] = useReducer<
-    typeof createViewReducer,
+    typeof createViewFormReducer,
     CreateViewForm
-  >(createViewReducer, initCreateViewState(), initCreateViewState);
+  >(createViewFormReducer, initCreateViewState(), initCreateViewState);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -54,12 +64,36 @@ export function CreateView(props: CreateViewProps) {
     dispatch({ type: "reset" });
   };
 
+  const getTaskBucketInfo = () => {
+    const { taskBucket, name } = userTier;
+    if (taskBucket < 0) {
+      return null;
+    } else if (taskBucket - totalTodos === 0) {
+      return (
+        <div className="TaskBucketInfo Danger">
+          You have reached your <strong>{name}</strong> tier limit (
+          <strong>{taskBucket}</strong> task!)
+        </div>
+      );
+    } else {
+      return (
+        <div className="TaskBucketInfo Info">
+          Hi <strong>{userName}</strong>, you can manage{" "}
+          <strong>{userTier.taskBucket - totalTodos}</strong> more task!
+        </div>
+      );
+    }
+  };
+
   return (
     <div className="Page CreatePage">
       <header className="PageHeader">
-        <h1 className="PageTitle">Create</h1>
+        <h1 className="PageTitle">
+          Create <i>({userTier.name} Tier)</i>
+        </h1>
       </header>
       <div className="PageContent">
+        {getTaskBucketInfo()}
         <Form onSubmit={handleSubmit} title="New Task">
           <FormItem title="Task" htmlFor="task">
             <input
@@ -83,7 +117,13 @@ export function CreateView(props: CreateViewProps) {
             </select>
           </FormItem>
           <FormFooter>
-            <button>Add</button>
+            <button
+              disabled={
+                totalTodos >= userTier.taskBucket && userTier.taskBucket > 0
+              }
+            >
+              Add
+            </button>
           </FormFooter>
         </Form>
         <Blocker show={status === "adding-todo"}>Please Wait...</Blocker>
@@ -95,13 +135,37 @@ export function CreateView(props: CreateViewProps) {
 export default function CreateContainer() {
   const { auth } = useAuthService();
   const { addTodo, status, todos } = useTodosService();
+  const {
+    productStore: { tiers, status: tierStatus, message: tierStatusMessage },
+    getTiers,
+  } = useProductService();
+
+  useEffect(() => {
+    if (!tiers) {
+      getTiers();
+    }
+  }, [tiers, getTiers]);
+
+  if (!auth.user) {
+    return null;
+  }
+
+  if (ProductStoreStatus.LOADING_TIERS_FAILED === tierStatus) {
+    return <div className="Page">{tierStatusMessage}</div>;
+  } else if (ProductStoreStatus.LOADING_TIERS === tierStatus) {
+    return <div className="Page">Initilizing...</div>;
+  } else if (!tiers) {
+    return null;
+  }
 
   return (
     <CreateView
       status={status}
       addTodo={addTodo}
-      uid={auth.user?.uid || ""}
+      uid={auth.user.uid || ""}
       totalTodos={todos.length}
+      userTier={tiers[auth.user.tier]}
+      userName={auth.user.userName}
     />
   );
 }

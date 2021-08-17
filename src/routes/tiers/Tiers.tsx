@@ -1,6 +1,6 @@
 import "./Tiers.css";
 import { IAuthStore } from "../../types";
-import { useAuthService } from "../../utils";
+import { useAuthService } from "../../services";
 import { NavLink as Link, useParams } from "react-router-dom";
 
 export function TiersView({
@@ -11,8 +11,8 @@ export function TiersView({
 }) {
   return (
     <div className="Page Tiers">
-      <header>
-        <h2>Tiers - {tier}</h2>
+      <header className="PageHeader">
+        <h1 className="PageTitle">Tiers - {tier}</h1>
       </header>
       <section>
         Details like cost, services, features about <strong>"{tier}"</strong>{" "}

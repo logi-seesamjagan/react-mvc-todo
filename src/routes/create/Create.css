@@ -3,4 +3,19 @@
   flex-grow: 1;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
+  gap: 1ch;
+}
+
+.CreatePage .TaskBucketInfo {
+  padding: 1ch;
+  margin: 1ch;
+  box-shadow: 0 0 4px;
+  border-radius: 0.25rem;
+}
+.CreatePage .TaskBucketInfo.Danger {
+  color: orangered;
+}
+.CreatePage .TaskBucketInfo.Info {
+  color: skyblue;
 }

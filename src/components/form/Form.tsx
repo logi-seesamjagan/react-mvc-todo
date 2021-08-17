@@ -17,7 +17,7 @@ interface IForm extends IContainer<HTMLFormElement> {}
 export function Form(props: IForm) {
   const { title, children, className = "", ...rest } = props;
   return (
-    <form className={"Form " + className} title={title} {...rest}>
+    <form className={"Form " + className} {...rest}>
       {title && <header className="FormHeader">{title}</header>}
       {children}
     </form>
@@ -25,9 +25,9 @@ export function Form(props: IForm) {
 }
 
 interface IFormItem extends IContainer<HTMLDivElement> {
-  error?: string;
-  warning?: string;
-  info?: string;
+  error?: string | null;
+  warning?: string | null;
+  info?: string | null;
   htmlFor?: string;
 }
 

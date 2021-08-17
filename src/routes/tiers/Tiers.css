@@ -7,7 +7,6 @@ section {
     text-align: center;
 }
 .Tiers header {
-    border-bottom: 1px solid #000;
     text-transform: capitalize;
     align-self: stretch;
 }

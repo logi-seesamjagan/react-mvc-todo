@@ -4,7 +4,7 @@ import { useCallback } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { Blocker, Form, FormFooter, FormItem } from "../../components";
 import { LoginUser, User } from "../../types";
-import { useAuthService } from "../../utils";
+import { useAuthService } from "../../services";
 import "./Login.css";
 
 type LoginViewPropType = {
@@ -28,7 +28,11 @@ export function LoginView({ logIn, authStatus }: LoginViewPropType) {
       e.preventDefault();
       if (userName.trim().length >= MIN_LENGTH_USERNAME) {
         logIn({ userName }).then((userOrErrorMessage) => {
-          typeof userOrErrorMessage === "string" && alert(userOrErrorMessage);
+          if (typeof userOrErrorMessage === "string") {
+            alert(userOrErrorMessage);
+          } else {
+            // success! logged in! init user and app!
+          }
         });
       } else {
         setUserNameError("Username is required");
@@ -54,7 +58,8 @@ export function LoginView({ logIn, authStatus }: LoginViewPropType) {
         </FormFooter>
         <footer className="FormFooter">
           <p>
-            Need an Account? Just&nbsp;<Link to="/register">Create</Link>&nbsp;it.
+            Need an Account? Just&nbsp;<Link to="/register">Create</Link>
+            &nbsp;it.
           </p>
         </footer>
       </Form>

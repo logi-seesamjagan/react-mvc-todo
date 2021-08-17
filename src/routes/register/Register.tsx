@@ -3,34 +3,38 @@ import { useState } from "react";
 import { useCallback } from "react";
 import { useHistory, Link } from "react-router-dom";
 import { Blocker, Form, FormFooter, FormItem } from "../../components";
-import { AuthStoreStatus, RegisterUser, User } from "../../types";
-import { useAuthService } from "../../utils";
+import {
+  AuthStoreStatus,
+  RegisterUser,
+  Tiers,
+  TierType,
+  User,
+} from "../../types";
+import { useAuthService, useProductService } from "../../services";
 import "./Register.css";
 
 const MIN_LENGTH_USERNAME = 5;
 
-const TierInfos: any = {
-  free: "Can manage upto 5 task at a time",
-  gold: "Can manage 500 task. Free 500 MiB Cloud storage",
-  platinum: "Can manage unlimited task. Free Unlimited Cloud storage",
-};
-
 export function RegisterView({
   registerUser,
   authStatus,
+  tiers,
+  tierStatusMessage,
 }: {
   registerUser: (user: RegisterUser) => Promise<User | string>;
   authStatus: AuthStoreStatus;
+  tiers: Tiers | null;
+  tierStatusMessage: string | null;
 }) {
   const [userName, setUserName] = useState("");
   const [userNameError, setUserNameError] = useState("");
-  const [tierInfo, setTierInfo] = useState(TierInfos.free);
-  const [tier, setTier] = useState("free");
+  const [tier, setTier] = useState<TierType>("free");
+  const [tierInfo, setTierInfo] = useState(tiers ? tiers[tier].info : null);
 
   const handleTierChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    const t = e.target.value;
+    const t = e.target.value as TierType;
     setTier(t);
-    setTierInfo(TierInfos[t]);
+    tiers && setTierInfo(tiers[t].info);
   };
 
   const handleUserNameChange = useCallback((e) => {
@@ -56,6 +60,12 @@ export function RegisterView({
     [userName, registerUser, tier]
   );
 
+  useEffect(() => {
+    if (tiers) {
+      setTierInfo(tiers[tier].info);
+    }
+  }, [tiers, tier]);
+
   return (
     <div className="Page Register">
       <Form title="Register" onSubmit={handleFormSubmit}>
@@ -73,11 +83,24 @@ export function RegisterView({
             autoFocus
           />
         </FormItem>
-        <FormItem title="Tier" htmlFor="tier" info={tierInfo}>
-          <select id="tier" onChange={handleTierChange} value={tier}>
-            <option value="free">Free</option>
-            <option value="gold">Gold</option>
-            <option value="platinum">Platinum</option>
+        <FormItem
+          title="Tier"
+          htmlFor="tier"
+          info={tierInfo}
+          error={tierStatusMessage}
+        >
+          <select
+            id="tier"
+            onChange={handleTierChange}
+            value={tier}
+            disabled={!tiers}
+          >
+            {tiers &&
+              Object.keys(tiers).map((t) => (
+                <option key={t} value={t}>
+                  {tiers[t].name}
+                </option>
+              ))}
           </select>
         </FormItem>
         <FormFooter>
@@ -99,6 +122,11 @@ export function RegisterView({
 export default function RegisterContainer() {
   const { register, auth, reset } = useAuthService();
 
+  const {
+    productStore: { tiers, message },
+    getTiers,
+  } = useProductService();
+
   const history = useHistory();
 
   useEffect(() => {
@@ -110,5 +138,18 @@ export default function RegisterContainer() {
     }
   }, [auth.status, history, reset]);
 
-  return <RegisterView registerUser={register} authStatus={auth.status} />;
+  useEffect(() => {
+    if (!tiers) {
+      getTiers();
+    }
+  }, [tiers, getTiers]);
+
+  return (
+    <RegisterView
+      registerUser={register}
+      authStatus={auth.status}
+      tiers={tiers as any}
+      tierStatusMessage={message}
+    />
+  );
 }

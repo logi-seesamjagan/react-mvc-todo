@@ -6,6 +6,9 @@ import {
   User,
   ITodoStore,
   TodoStoreStatus,
+  Tiers,
+  IProductStore,
+  ProductStoreStatus,
 } from "../../../types";
 
 export function authReducer(
@@ -15,7 +18,7 @@ export function authReducer(
   const { type, payload } = action;
   switch (type) {
     case AuthStoreStatus.IDLE:
-      return {status: type, user: null, message: ''};
+      return { status: type, user: null, message: "" };
     case AuthStoreStatus.LOGGED_IN:
       return { status: type, user: payload as User };
     case AuthStoreStatus.LOGGED_OUT:
@@ -94,6 +97,29 @@ export function todosReducer(
     case AuthStoreStatus.LOGGED_OUT:
     case AuthStoreStatus.IDLE:
       return { status: TodoStoreStatus.IDLE, todos: [], message: "" };
+    default:
+      return state;
+  }
+}
+
+export function productReducer(
+  state: IProductStore = {
+    tiers: null,
+    status: ProductStoreStatus.IDLE,
+    message: null,
+  },
+  action: FSA<Tiers | null, ProductStoreStatus>
+): IProductStore {
+  const { type, payload } = action;
+  switch (type) {
+    case ProductStoreStatus.IDLE:
+      return state;
+    case ProductStoreStatus.LOADING_TIERS:
+      return { ...state, status: type };
+    case ProductStoreStatus.LOADING_TIERS_SUCCESS:
+      return { ...state, status: ProductStoreStatus.IDLE, tiers: payload };
+    case ProductStoreStatus.LOADING_TIERS_FAILED:
+      return { ...state, status: type, tiers: null };
     default:
       return state;
   }

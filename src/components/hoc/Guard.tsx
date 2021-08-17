@@ -1,6 +1,6 @@
 import { Redirect, useLocation } from "react-router-dom";
 import { AuthStoreStatus } from "../../types";
-import { useAuthService } from "../../utils";
+import { useAuthService } from "../../services";
 
 export function withGuard<CompPropType = any>(Comp: any) {
   function WithGuard(props: CompPropType) {

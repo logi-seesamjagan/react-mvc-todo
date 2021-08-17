@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import { Blocker } from "../../components";
-import { useAuthService } from "../../utils";
+import { useAuthService } from "../../services";
 
 function AutoInfo() {
   const { auth, logOut } = useAuthService();

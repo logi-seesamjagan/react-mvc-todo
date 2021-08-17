@@ -5,7 +5,7 @@ export type LoginUser = {
 };
 
 export type RegisterUser = LoginUser & {
-  tier: string;
+  tier: TierType;
 };
 
 export type User = RegisterUser & {
@@ -67,6 +67,7 @@ export interface ITodoStore {
 export interface IAppStore {
   authStore: IAuthStore;
   todoStore: ITodoStore;
+  productStore: IProductStore;
 }
 
 export type FSA<Payload = any, ActionType = string> = Action<ActionType> & {
@@ -80,3 +81,30 @@ export type IAuthService = () => {
   register: (user: RegisterUser) => Promise<User | string>;
   reset: () => void;
 };
+
+export type TierType = "free" | "gold" | "platinum";
+
+export type Tier = {
+  type: TierType;
+  name: string;
+  info: string;
+  taskBucket: number;
+  storageBucket: number;
+};
+
+export type Tiers = {
+  [key: string]: Tier;
+};
+
+export enum ProductStoreStatus {
+  IDLE = "idle-product-store",
+  LOADING_TIERS = "loading-tiers",
+  LOADING_TIERS_SUCCESS = "loading-tiers-success",
+  LOADING_TIERS_FAILED = "loading-tiers-failed",
+}
+
+export interface IProductStore {
+  tiers: Tiers | null;
+  status: ProductStoreStatus;
+  message: string | null;
+}

@@ -1,7 +1,7 @@
 import { autorun } from "mobx";
 import { useEffect, useState } from "react";
-import { useXStore } from "../../store";
-import { IAuthStore } from "../../types";
+import { useXStore } from "../store";
+import { IAuthStore } from "../types";
 
 //--------------------------------------
 // service/controller hook for Auth

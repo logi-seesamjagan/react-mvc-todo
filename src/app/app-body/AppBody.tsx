@@ -1,5 +1,13 @@
 import { Route, Switch } from "react-router-dom";
-import { Create, Home, Login, Todos, Register, Tiers } from "../../routes";
+import {
+  Create,
+  Home,
+  Login,
+  Todos,
+  Register,
+  Tiers,
+  Settings,
+} from "../../routes";
 
 export function AppBody() {
   return (
@@ -21,6 +29,9 @@ export function AppBody() {
       </Route>
       <Route path="/tiers/:tier">
         <Tiers />
+      </Route>
+      <Route path="/settings">
+        <Settings />
       </Route>
       <Route>
         <div className="Page Page-404">

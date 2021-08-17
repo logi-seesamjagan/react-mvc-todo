@@ -1,7 +1,7 @@
 import "./Home.css";
 import { Link } from "react-router-dom";
 import { IAuthStore } from "../../types";
-import { useAuthService } from "../../utils";
+import { useAuthService } from "../../services";
 
 const TechStack = [
   "HTML",
@@ -40,10 +40,16 @@ export function HomeView({ auth }: { auth: IAuthStore }) {
           power
         </section>
       )}
-      <section>
-        Anyone can visit this page.
-        <cite> No Auth Required!</cite>
-      </section>
+      {auth.status !== "logged-in" && (
+        <section>
+          To use the Todo App, you need to
+          <Link className="LoginLink" to="/login">
+            Login.
+          </Link>
+          If you don't have an account?
+          <Link to="/register">Register</Link>one!
+        </section>
+      )}
       <section>
         <header>
           <h3>Tech Stack</h3>
@@ -56,18 +62,6 @@ export function HomeView({ auth }: { auth: IAuthStore }) {
           ))}
         </div>
       </section>
-      {auth.status !== "logged-in" && (
-        <>
-          <section>
-            To access other pages, you need to
-            <Link className="LoginLink" to="/login">
-              Login.
-            </Link>
-            If you don't have an account?
-            <Link to="/register">Register</Link>one!
-          </section>
-        </>
-      )}
     </div>
   );
 }

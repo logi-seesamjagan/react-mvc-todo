@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Blocker, Form, FormItem } from "../../components";
 import { Todo, TodoStatus, TodoStoreStatus } from "../../types";
-import { useAuthService, useTodosService } from "../../utils";
+import { useAuthService, useTodosService } from "../../services";
 
 import "./Todos.css";
 
