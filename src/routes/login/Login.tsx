@@ -5,7 +5,7 @@ import { Link, useHistory } from "react-router-dom";
 import { Blocker, Form, FormFooter, FormItem } from "../../components";
 import { LoginUser, User } from "../../types";
 import { useAuthService } from "../../services";
-import "./Login.css";
+import "./Login.scss";
 
 type LoginViewPropType = {
   logIn: (user: LoginUser) => Promise<User | string>;

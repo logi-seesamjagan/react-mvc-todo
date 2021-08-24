@@ -1,0 +1,24 @@
+.CreatePage {
+  .PageContent {
+    display: flex;
+    flex-grow: 1;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1ch;
+  }
+  .TaskBucketInfo {
+    padding: 1ch;
+    margin: 1ch;
+    box-shadow: 0 0 4px;
+    border-radius: 0.25rem;
+  }
+  .TaskBucketInfo {
+    &.Danger {
+      color: orangered;
+    }
+    &.Info {
+      color: skyblue;
+    }
+  }
+}

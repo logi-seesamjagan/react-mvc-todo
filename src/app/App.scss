@@ -9,23 +9,28 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
-}
-.AppHeader {
-  display: flex;
-  box-shadow: 0 0px 2px #000;
-  border-radius: 0.2rem;
-  background-color: #6696C6;
-  color: #fff;
-  align-items: center;
+  &Header {
+    display: flex;
+    box-shadow: 0 0px 2px #000;
+    border-radius: 0.2rem;
+    background-color: #6696c6;
+    color: #fff;
+    align-items: center;
+  }
+
+  &Title {
+    padding: 8px 4px;
+    flex-grow: 1;
+    .Icon {
+      padding: 0;
+    }
+  }
 }
 
-.AppTitle {
-  padding: 8px 4px;
-  flex-grow: 1;
-}
-
-.AppTitle .Icon {
-  padding: 0;
+.Icon {
+  display: inline-flex;
+  font-size: 1em;
+  line-height: 1em;
 }
 
 .Page {
@@ -36,12 +41,27 @@
   flex-grow: 1;
   padding: 4px;
   overflow: auto;
+
+  &Header {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px dotted #000;
+    justify-content: space-between;
+  }
+  &Title {
+    color: #234689;
+  }
 }
 
 .Page-404 {
   align-items: center;
   justify-content: center;
   color: tomato;
+  .Icon {
+    padding: 0;
+    font-size: 4rem;
+    text-shadow: 0 1px 4px #333;
+  }
 }
 .NavBar {
   display: flex;
@@ -56,21 +76,17 @@
   height: 3.5rem;
   flex-grow: 1;
   box-shadow: 0 0px 2px #000;
-  background-color: #69C;
+  background-color: #69c;
   color: #fff;
   text-decoration: none;
   border-radius: 0.2rem;
   gap: 0.25rem;
+  user-select: none;
+  &.active {
+    background-color: #369;
+  }
 }
 
-.Link.active {
-  background-color: #369;
-}
-.Icon {
-  display: inline-flex;
-  font-size: 1em;
-  line-height: 1em;
-}
 .Logout {
   padding: 1ch;
   cursor: pointer;
@@ -79,30 +95,14 @@
   font-weight: bold;
 }
 
-.PageHeader {
-  display: flex;
-  align-items: center;
-  border-bottom: 1px dotted #000;
-  justify-content: space-between;
-}
-.PageTitle {
-  color: #234689;
-  
-}
 .MissingRoute {
   color: #999;
   display: flex;
   gap: 0.25ch;
   align-items: center;
-}
-.MissingRoute::before, .MissingRoute::after {
-  content: "--";
-  color: red;
-  
-}
-
-.Page-404 .Icon {
-  padding: 0;
-  font-size: 4rem;
-  text-shadow: 0 1px 4px #333;
+  &::before,
+  &::after {
+    content: "--";
+    color: red;
+  }
 }

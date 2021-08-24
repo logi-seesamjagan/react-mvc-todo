@@ -11,7 +11,7 @@ import {
   User,
 } from "../../types";
 import { useAuthService, useProductService } from "../../services";
-import "./Register.css";
+import "./Register.scss";
 
 const MIN_LENGTH_USERNAME = 5;
 

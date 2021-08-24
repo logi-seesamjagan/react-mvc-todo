@@ -16,7 +16,7 @@ import {
   useTodosService,
 } from "./../../services";
 
-import "./Create.css";
+import "./Create.scss";
 
 type CreateViewProps = {
   addTodo: (todo: NewTodo) => Promise<Todo | null>;

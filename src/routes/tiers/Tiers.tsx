@@ -1,4 +1,4 @@
-import "./Tiers.css";
+import "./Tiers.scss";
 import { IAuthStore } from "../../types";
 import { useAuthService } from "../../services";
 import { NavLink as Link, useParams } from "react-router-dom";

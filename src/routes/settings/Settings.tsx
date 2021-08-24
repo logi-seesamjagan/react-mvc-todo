@@ -3,7 +3,8 @@ import { useState } from "react";
 import { Form, FormFooter, FormItem } from "../../components";
 import { ProductStoreStatus, Tiers, TierType, User } from "../../types";
 import { useAuthService, useProductService } from "../../services";
-import "./Settings.css";
+import "./Settings.scss";
+import { Link } from "react-router-dom";
 
 function SettingsView(props: { user: User; tiers: Tiers }) {
   const { user, tiers } = props;
@@ -19,7 +20,10 @@ function SettingsView(props: { user: User; tiers: Tiers }) {
       </header>
       <section className="Settings-Body">
         <p>
-          Current Tier: <strong>{tiers[user.tier].name}</strong>
+          Current Tier:{" "}
+          <Link to={"/tiers/" + tierType}>
+            <strong>{tiers[user.tier].name}</strong>
+          </Link>
         </p>
         <Form title="Tier Settings">
           <FormItem title="Switch Tier" info={info}>

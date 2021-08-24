@@ -5,7 +5,7 @@ import { Blocker, Form, FormItem } from "../../components";
 import { Todo, TodoStatus, TodoStoreStatus } from "../../types";
 import { useAuthService, useTodosService } from "../../services";
 
-import "./Todos.css";
+import "./Todos.scss";
 
 type TodosViewProps = {
   todos: Todo[];

@@ -57,7 +57,6 @@ Last Update: `2021-Aug-12`
 1. Co-locate the CSS / SCSS files along with its relevant View files
 1. Co-locate unit test scripts along with the View files
 1. Lazy-Load modules on demand
-1. Use magnetite components
 
 ## Tech Stack:
 
@@ -65,3 +64,4 @@ Last Update: `2021-Aug-12`
 1. Redux / React-Redux / mobx / xstate
 1. React-Router-Dom
 1. Typescript
+1. Sass

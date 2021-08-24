@@ -2,7 +2,7 @@ import { BrowserRouter } from "react-router-dom";
 import { AppBody } from "./app-body/AppBody";
 import { AppFooter } from "./app-footer/AppFooter";
 import { AppHeader } from "./app-header/AppHeader";
-import "./App.css";
+import "./App.scss";
 
 function App() {
   return (

@@ -1,5 +1,5 @@
 import { HTMLAttributes } from "react";
-import "./Form.css";
+import "./Form.scss";
 
 interface IContainer<T> extends HTMLAttributes<T> {
   children?:

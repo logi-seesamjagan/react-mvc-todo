@@ -1,4 +1,4 @@
-import "./Home.css";
+import "./Home.scss";
 import { Link } from "react-router-dom";
 import { IAuthStore } from "../../types";
 import { useAuthService } from "../../services";
