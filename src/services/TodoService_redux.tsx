@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { apiAddTodo, apiGetTodos, apiSetTodo } from "../ajax";
+import { apiAddTodo, apiGetTodos, apiSetTodo } from "ajax";
 import {
   FSA,
   IAppStore,
@@ -9,7 +9,7 @@ import {
   Todo,
   TodoStatus,
   TodoStoreStatus,
-} from "../types";
+} from "types";
 //--------------------------------------
 //#region action creators - Todos
 //--------------------------------------

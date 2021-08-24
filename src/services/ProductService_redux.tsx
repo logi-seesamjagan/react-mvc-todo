@@ -1,12 +1,12 @@
 import { useDispatch, useSelector } from "react-redux";
-import { apiGetTiers } from "../ajax";
+import { apiGetTiers } from "ajax";
 import {
   FSA,
   IAppStore,
   IProductStore,
   ProductStoreStatus,
   Tiers,
-} from "../types";
+} from "types";
 
 //--------------------------------------
 // #region Action Creatore

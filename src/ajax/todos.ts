@@ -1,4 +1,4 @@
-import { NewTodo, Todo, TodoStatus } from "../types";
+import { NewTodo, Todo, TodoStatus } from "types";
 
 import mockService from "./__mock/mock-service";
 

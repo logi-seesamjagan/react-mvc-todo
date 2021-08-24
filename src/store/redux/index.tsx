@@ -1,5 +1,5 @@
 import { combineReducers, createStore, Store } from "redux";
-import { IAppStore } from "../../types";
+import { IAppStore } from "types";
 import { authReducer, productReducer, todosReducer } from "./reducers";
 
 const rootReducer = combineReducers<IAppStore>({

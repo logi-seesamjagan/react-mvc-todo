@@ -1,12 +1,6 @@
-import {
-  Todo,
-  ITodoStore,
-  TodoStoreStatus,
-  TodoStatus,
-  NewTodo,
-} from "../../types";
+import { Todo, ITodoStore, TodoStoreStatus, TodoStatus, NewTodo } from "types";
 import { makeAutoObservable } from "mobx";
-import { apiAddTodo, apiGetTodos, apiSetTodo } from "../../ajax";
+import { apiAddTodo, apiGetTodos, apiSetTodo } from "ajax";
 
 class TodoStore implements ITodoStore {
   todos: Todo[] = [];

@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { useState } from "react";
-import { Form, FormFooter, FormItem } from "../../components";
-import { ProductStoreStatus, Tiers, TierType, User } from "../../types";
-import { useAuthService, useProductService } from "../../services";
+import { Form, FormFooter, FormItem } from "components";
+import { ProductStoreStatus, Tiers, TierType, User } from "types";
+import { useAuthService, useProductService } from "services";
 import "./Settings.scss";
 import { Link } from "react-router-dom";
 

@@ -1,4 +1,4 @@
-import { LoginUser, NewTodo, Todo, User, RegisterUser, Tiers } from "../../types";
+import { LoginUser, NewTodo, Todo, User, RegisterUser, Tiers } from "types";
 
 const getNetworkDelay = () => 1000 + Math.random() * 1000;
 

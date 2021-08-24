@@ -1,4 +1,4 @@
-import { IAuthService } from "../types";
+import { IAuthService } from "types";
 import { useXAuthService } from "./AuthService_mobx";
 import { useReduxAuthService } from "./AuthService_redux";
 

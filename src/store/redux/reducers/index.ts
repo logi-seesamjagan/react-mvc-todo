@@ -9,7 +9,7 @@ import {
   Tiers,
   IProductStore,
   ProductStoreStatus,
-} from "../../../types";
+} from "types";
 
 export function authReducer(
   state: IAuthStore = { status: AuthStoreStatus.IDLE },

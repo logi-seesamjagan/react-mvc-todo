@@ -7,7 +7,7 @@ import {
   Register,
   Tiers,
   Settings,
-} from "../../routes";
+} from "routes";
 
 export function AppBody() {
   return (

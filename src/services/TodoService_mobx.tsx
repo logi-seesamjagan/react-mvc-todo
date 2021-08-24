@@ -1,7 +1,7 @@
 import { autorun } from "mobx";
 import { useEffect, useState } from "react";
-import { useXStore } from "../store";
-import { AuthStoreStatus, ITodoStore, TodoStoreStatus } from "../types";
+import { useXStore } from "store";
+import { AuthStoreStatus, ITodoStore, TodoStoreStatus } from "types";
 
 //--------------------------------------
 // service/controller hook for todos

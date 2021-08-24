@@ -1,6 +1,12 @@
-import { User, IAuthStore, AuthStoreStatus, LoginUser, RegisterUser } from "../../types";
+import {
+  User,
+  IAuthStore,
+  AuthStoreStatus,
+  LoginUser,
+  RegisterUser,
+} from "types";
 import { makeAutoObservable } from "mobx";
-import { apiLogin, apiLogout, apiRegister } from "../../ajax";
+import { apiLogin, apiLogout, apiRegister } from "ajax";
 
 class AuthStore implements IAuthStore {
   user: User | null = null;
@@ -31,7 +37,9 @@ class AuthStore implements IAuthStore {
     this.status = AuthStoreStatus.LOGGING_OUT;
     return apiLogout(user)
       .then((isLoggedOut) => {
-        this.status = isLoggedOut ? AuthStoreStatus.LOGGED_OUT : AuthStoreStatus.AUTH_ERROR;
+        this.status = isLoggedOut
+          ? AuthStoreStatus.LOGGED_OUT
+          : AuthStoreStatus.AUTH_ERROR;
         this.user = null; // TODO what to do in case of false?
         this.message = isLoggedOut ? "" : "Failed to logout!";
         return true;

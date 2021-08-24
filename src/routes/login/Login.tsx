@@ -2,9 +2,9 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useCallback } from "react";
 import { Link, useHistory } from "react-router-dom";
-import { Blocker, Form, FormFooter, FormItem } from "../../components";
-import { LoginUser, User } from "../../types";
-import { useAuthService } from "../../services";
+import { Blocker, Form, FormFooter, FormItem } from "components";
+import { LoginUser, User } from "types";
+import { useAuthService } from "services";
 import "./Login.scss";
 
 type LoginViewPropType = {

@@ -2,15 +2,15 @@ import { ChangeEvent, useEffect } from "react";
 import { useState } from "react";
 import { useCallback } from "react";
 import { useHistory, Link } from "react-router-dom";
-import { Blocker, Form, FormFooter, FormItem } from "../../components";
+import { Blocker, Form, FormFooter, FormItem } from "components";
 import {
   AuthStoreStatus,
   RegisterUser,
   Tiers,
   TierType,
   User,
-} from "../../types";
-import { useAuthService, useProductService } from "../../services";
+} from "types";
+import { useAuthService, useProductService } from "services";
 import "./Register.scss";
 
 const MIN_LENGTH_USERNAME = 5;

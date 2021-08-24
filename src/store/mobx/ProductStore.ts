@@ -1,6 +1,6 @@
 import { makeAutoObservable } from "mobx";
-import { apiGetTiers } from "../../ajax";
-import { IProductStore, ProductStoreStatus, Tiers } from "../../types";
+import { apiGetTiers } from "ajax";
+import { IProductStore, ProductStoreStatus, Tiers } from "types";
 
 class ProductStore implements IProductStore {
   tiers: Tiers | null = null;

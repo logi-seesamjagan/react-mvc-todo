@@ -1,7 +1,7 @@
 import { autorun } from "mobx";
 import { useState } from "react";
 import { useEffect } from "react";
-import { useXStore } from "../store";
+import { useXStore } from "store";
 
 //--------------------------------------
 // #region Product Service Middleware

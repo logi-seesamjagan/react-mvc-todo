@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { FormEvent, useReducer } from "react";
-import { Blocker, Form, FormFooter, FormItem } from "../../components";
+import { Blocker, Form, FormFooter, FormItem } from "components";
 import {
   NewTodo,
   ProductStoreStatus,
@@ -8,13 +8,13 @@ import {
   Todo,
   TodoStatus,
   TodoStoreStatus,
-} from "../../types";
-import { FormAction, formReducer } from "../../utils";
+} from "types";
+import { FormAction, formReducer } from "utils";
 import {
   useAuthService,
   useProductService,
   useTodosService,
-} from "./../../services";
+} from "services";
 
 import "./Create.scss";
 

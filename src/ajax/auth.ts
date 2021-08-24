@@ -1,4 +1,4 @@
-import { LoginUser, User, RegisterUser } from "../types";
+import { LoginUser, User, RegisterUser } from "types";
 
 import mockService from "./__mock/mock-service";
 
