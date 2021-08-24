@@ -52,7 +52,7 @@ function TodoView(props: TodoViewProps) {
 
   return (
     <div className="Todo">
-      <span className="Icon">{statusIcons[data.status]}</span>
+      <span className="Icon Status">{statusIcons[data.status]}</span>
       <input
         type="text"
         className={"Task " + action}

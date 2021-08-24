@@ -1,25 +1,25 @@
 .Tiers {
- position: relative;
- align-items: center;
- gap: 5ch;
-}
-section {
+  position: relative;
+  align-items: center;
+  gap: 5ch;
+  section {
     text-align: center;
-}
-.Tiers header {
+  }
+  header {
     text-transform: capitalize;
     align-self: stretch;
-}
-.Tiers .Nav {
+  }
+  .Nav {
     display: flex;
     padding: 1ch;
     gap: 1ch;
-}
-.Tiers .Nav a {
-    margin: 0 0.25ch;
-}
-.Tiers .Nav a.active {
-    color: goldenrod;
-    font-weight: 600;
-    text-decoration: none;
+    a {
+      margin: 0 0.25ch;
+      &.active {
+        color: goldenrod;
+        font-weight: 600;
+        text-decoration: none;
+      }
+    }
+  }
 }

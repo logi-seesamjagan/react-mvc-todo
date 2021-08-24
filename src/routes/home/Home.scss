@@ -2,45 +2,47 @@
   display: flex;
   align-items: center;
   justify-content: center;
-}
-.Home section {
-  padding: 1rem;
-  text-align: center;
-  line-height: 1.5rem;
-}
-.Home :any-link {
-  display: inline-flex;
-  padding: 0 0.5ch;
-  border-radius: 0.2rem;
-}
-.Home .Techs {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5ch;
-  font-size: 0.85rem;
-  text-transform: lowercase;
-  justify-content: center;
-  align-items: center;
-}
-.Home .Tech {
-  background-color: #69c;
-  color: #fff;
-  padding: 0.15ch 0.5ch;
-  border-radius: 0.25rem;
-  display: flex;
-  align-items: center;
-}
-.Home :is(h1, h2, h3) {
-  border-bottom: dotted 1px #ccc;
-  margin-bottom: 1ch;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.Home h3::before,
-.Home h3::after {
-  content: "💎";
-  font-size: small;
-  padding: 0 1ch;
-  text-shadow: 0 0 1px;
+  section {
+    padding: 1rem;
+    text-align: center;
+    line-height: 1.5rem;
+  }
+  :any-link {
+    display: inline-flex;
+    padding: 0 0.5ch;
+    border-radius: 0.2rem;
+  }
+  :is(h1, h2, h3) {
+    border-bottom: dotted 1px #ccc;
+    margin-bottom: 1ch;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .Techs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5ch;
+    font-size: 0.85rem;
+    text-transform: lowercase;
+    justify-content: center;
+    align-items: center;
+    .Tech {
+      background-color: #69c;
+      color: #fff;
+      padding: 0.15ch 0.5ch;
+      border-radius: 0.25rem;
+      display: flex;
+      align-items: center;
+    }
+  }
+  h3 {
+    &::before,
+    &::after {
+      content: "💎";
+      font-size: small;
+      padding: 0 1ch;
+      text-shadow: 0 0 1px;
+    }
+  }
 }

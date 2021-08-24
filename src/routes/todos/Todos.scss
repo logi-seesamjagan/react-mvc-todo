@@ -1,53 +1,58 @@
-.No-Data {
-    display: flex;
-    align-items: center;
-    flex-grow: 1;
-    text-align: center;
-}
-.Todos {
+.TodosPage {
+  .Todos {
     display: flex;
     flex-direction: column;
     flex-grow: 1;
     overflow: auto;
     padding: 1ch;
     gap: 1ch;
-}
-.Todo {
-    padding: 0.5ch;
-    border-radius: 0.25rem;
-    box-shadow: 0 0 4px -1px;
-    display: flex;
-    align-items: center;
-}
-.Todo .Icon {
-    text-shadow: 0 0 3px;
-    padding-right: 1ch;
-}
-.TodosPage .Form {
+    .Todo {
+      padding: 0.5ch;
+      border-radius: 0.25rem;
+      box-shadow: 0 0 4px -1px;
+      display: flex;
+      align-items: center;
+      .Icon {
+        &.Status {
+          text-shadow: 0 0 3px;
+          padding-right: 0.5ch;
+        }
+      }
+      .Task {
+        flex-grow: 1;
+        border: transparent;
+        background-color: transparent;
+        .Edit {
+          border: solid 1px #ccc;
+          padding: 0.5ch;
+        }
+      }
+      .Actions {
+        display: flex;
+        gap: 0.75ch;
+        padding: 0 0.5ch;
+        .Icon {
+          &.Action {
+            cursor: pointer;
+            padding: 0;
+            font-size: small;
+          }
+          &.Edit {
+            transform: scaleX(-1);
+          }
+        }
+      }
+    }
+  }
+  .Form {
     box-shadow: none;
     width: 10ch;
     padding: 0 0 1ch;
-}
-.Task {
-    flex-grow: 1;
-    border: transparent;
-    background-color: transparent;
-}
-.Task.Edit {
-    border: solid 1px #ccc;
-    padding: 0.5ch;
-}
-
-.Icon.Action {
-    cursor: pointer;
-    padding: 0;
-    font-size: small;
-}
-.Icon.Edit {
-    transform: scaleX(-1);
-}
-.Actions {
+  }
+  .No-Data {
     display: flex;
-    gap: 0.75ch;
-    padding: 0 0.5ch;
+    align-items: center;
+    flex-grow: 1;
+    text-align: center;
+  }
 }

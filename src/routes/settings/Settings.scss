@@ -1,11 +1,11 @@
 .Settings {
     position: relative;
-}
-.Settings-Body {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-grow: 1;
-    flex-direction: column;
-    gap: 1ch;
+    &-Body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-grow: 1;
+        flex-direction: column;
+        gap: 1ch;
+    }
 }
